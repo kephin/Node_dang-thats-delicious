@@ -62,14 +62,22 @@ Notes:
   }
   ```
 
-5. Flash messages
+5. Flash messages: flash always show on the next request.
 
 ```javascript
 const flash = require('connect-flash');
 app.use(flash());
 
+app.use((req, res, next) => {
+  // pull out the flashes and then put into the locals
+  // What are locals?
+  // locals are the variables that are available to you in the templates
+  res.locals.flashes = req.flash();
+  next();
+});
+
 // success, error, warning, info
-req.flash('success', `Success Create ${todo.text}`);
+req.flash('success', `Successfully Created ${todo.title}`);
 ```
 
-
+6.
