@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <title><%#= title %> | <%= h.siteName %></title>
+  <link rel="stylesheet" type="text/css" href="/dist/style.css">
+  <link rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png">
+</head>
+<body>
+  <!-- header -->
+  <header class="top">
+    <nav class="nav">
+      <div class="nav__section nav__section--pages">
+        <li class="nav__item">
+          <a href="/" class="nav__link nav__link--logo"><%- h.icon('logo') -%></a>
+        </li>
+        <% h.menu.forEach(item => { %>
+          <li class="nav__item">
+            <a href='<%= item.slug %>' class="nav__link <%= (currentPath.startsWith(item.slug) ? 'nav__link--active' : '') %>">
+              <%- h.icon(item.icon) -%>
+              <span><%= item.title %></span>
+            </a>
+          </li>
+        <% }) %>
+      </div>
+      <div class="nav__section nav__section--search">
+        <div class="search">
+          <input type="text" class="search__input" placeholder="Coffee, beer..." name="search">
+          <div class="search__results"></div>
+        </div>
+      </div>
+      <div class="nav__section nav__section--user">
+        <% if (user) { %>
+          <li class="nav__item">
+            <a href="/hearts" class="nav__link <%= (currentPath.startsWith('/hearts') ? 'nav__link--active' : '') %>">
+              <%- h.icon('heart') -%>
+              <span class="heart-count"><%= user.hearts && user.hearts.length %></span>
+            </a>
+          </li>
+          <li class="nav__item">
+            <a href="/logout" class="nav__link <%= (currentPath.startsWith('/logout') ? 'nav__link--active' : '') %>">
+              <%- h.icon('logout') -%>
+            </a>
+            <span>Logout</span>
+          </li>
+          <li class="nav__item">
+            <a href="/account" class="nav__link <%= (currentPath.startsWith('/account') ? 'nav__link--active' : '') %>">
+              <img scr=<%= user.gravatar + 'd=retro' %> class="avatar"></img>
+              <%- h.icon('logout') -%>
+            </a>
+            <span>Logout</span>
+          </li>
+        <% } else { %>
+           <li class="nav__item">
+            <a href="/register" class="nav__link <%= (currentPath.startsWith('/register') ? 'nav__link--active' : '') %>">Register</a>
+           </li>
+           <li class="nav__item">
+            <a href="/login" class="nav__link <%= (currentPath.startsWith('/login') ? 'nav__link--active' : '') %>">Log In</a>
+           </li>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+
+  <div class="content">
