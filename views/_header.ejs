@@ -65,4 +65,21 @@
     </nav>
   </header>
 
+  <!-- messages -->
+  <% if (locals.flashes) { %>
+    <div class="inner">
+      <div class="flash-messages">
+        <% const categories = Object.keys(locals.flashes); %>
+        <% categories.forEach(category => { %>
+          <% flashes[category].forEach(message => { %>
+            <div class="flash flash--<%= category %>">
+              <p class="flash__text"><%- message %></p>
+              <button class="flash__remove" onclick='this.parentElement.remove()'>&times;</button>
+            </div>
+          <% }) %>
+        <% }) %>
+      </div>
+    </div>
+  <% } %>
+
   <div class="content">
